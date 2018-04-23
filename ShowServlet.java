@@ -1,8 +1,3 @@
- /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,25 +15,9 @@ import jxl.Cell;
 import jxl.Sheet;
 import model.Mobilepaymentusers;
 
-/**
- *
- * @author Seun
- */
+
 @WebServlet(urlPatterns = {"/ShowServlet"})
 public class ShowServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    
-    
-    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -63,23 +42,6 @@ public class ShowServlet extends HttpServlet {
 
         Cell[] phoneNumber = sheet.getColumn(0);
         
-        
-        
-        
-        
-        
-        
-        /**
-         * if (column > 1) { fNames = sheet.getColumn(1); } if (column > 2) {
-         * addrs = sheet.getColumn(2); } if (column > 3) { phonenumber =
-         * sheet.getColumn(3); } if (column > 4) { cusId = sheet.getColumn(4); }
-         * if (column > 5) { MFBID = sheet.getColumn(5); }  *
-         */
-        
-        
-        
-        
-        
         for (int i = 0; i < phoneNumber.length; i++) {
             Mobilepaymentusers phonebook = new Mobilepaymentusers();
             boolean isvalid = true;
@@ -88,15 +50,15 @@ public class ShowServlet extends HttpServlet {
                 System.out.println("Get me the value: " + phone);
                 phonebook.setAccountNumber(phone);
                 System.out.println("Extract Number " + phonebook.getAccountNumber());
-               // validlist.add(phonebook);
+              
                 
                 HashMap dataMap = new HashMap(); 
                 dataMap.put("Phone", phone);
                 
-                //http://41.73.252.230:8080/SmartWallet/Proxy/ChangePinSergovia
+               
                 GenericAPIPacket generic = new GenericAPIPacket();
-                generic.setAppName("search");
-                generic.setBaseUrl("https://tcapi.phphive.info/1ImlX1d0f8/");
+                generic.setAppName("");
+                generic.setBaseUrl("");
                 generic.setServiceParams(dataMap);
                 try {
                     String postTransaction = PostUtil.postTransaction(generic);
@@ -104,19 +66,11 @@ public class ShowServlet extends HttpServlet {
                     request.setAttribute("show", validlist);
                     
                     System.out.println("Response " + postTransaction);
-                   
-                   
-                   // Create a stream to hold the output
-                    
-                   
-                   
-                  //  String[] split = postTransaction.split("\\|");
-                    
-                   // System.out.println(split[1]+"|"+split[2]);
+                  
                     
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                    //Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+                   
                 }
        
     }
@@ -125,45 +79,22 @@ public class ShowServlet extends HttpServlet {
     }
     
     
-     
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+ 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
